@@ -1,0 +1,101 @@
+{
+    "name": "sideagroup/zuora",
+    "description": "In this package you will find: Zuora Api Client",
+    "keywords": [
+        "sideagroup",
+        "laravel",
+        "zuora",
+        "zuora"
+    ],
+    "homepage": "https://github.com/sideagroup/zuora",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Francesco Liuzzi",
+            "email": "francesco.liuzzi@sideagroup.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "bilfeldt/laravel-http-client-logger": "^2.2",
+        "illuminate/contracts": "^9.0|^10.0|^11.0",
+        "illuminate/support": "*",
+        "nesbot/carbon": "^2.0|^3.0",
+        "spatie/laravel-package-tools": "^1.16.4"
+    },
+    "require-dev": {
+        "guzzlehttp/guzzle": "^7.8.1",
+        "larastan/larastan": "^2.9.6",
+        "laravel/pint": "^1.15.3",
+        "nunomaduro/collision": "^6.4",
+        "orchestra/testbench": "^7.41.3",
+        "pestphp/pest": "^1.23.1",
+        "pestphp/pest-plugin-laravel": "^1.4",
+        "pestphp/pest-plugin-watch": "1.x-dev",
+        "phpstan/phpstan-deprecation-rules": "^1.1.4",
+        "phpstan/phpstan-phpunit": "^1.3.16",
+        "phpunit/phpunit": "^9.6.19",
+        "spatie/laravel-ray": "^1.36.2",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sideagroup\\Zuora\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sideagroup\\Zuora\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "analyse": "php -d memory_limit=-1 vendor/bin/phpstan analyse --memory-limit=1G",
+        "test": "vendor/bin/pest",
+        "test:watch": "vendor/bin/pest --watch",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "fix": "pint",
+        "version:increment:patch": "semver --adapter=composer increment:patch",
+        "version:increment:minor": "semver --adapter=composer increment:minor",
+        "version:increment:major": "semver --adapter=composer increment:major",
+        "git:commit-tag-and-push": [
+            "git add . && git commit -m \"release $(semver --adapter=composer get:version)\"",
+            "git tag $(semver --adapter=composer get:version)",
+            "git push && git push --tag"
+        ],
+        "publish:patch": [
+            "@version:increment:patch",
+            "@git:commit-tag-and-push"
+        ],
+        "publish:minor": [
+            "@version:increment:minor",
+            "@git:commit-tag-and-push"
+        ],
+        "publish:major": [
+            "@version:increment:major",
+            "@git:commit-tag-and-push"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sideagroup\\Zuora\\ServiceProvider"
+            ],
+            "aliases": {
+                "ZuoraApiClient": "Sideagroup\\Zuora\\Facades\\ZuoraApiClient"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "suggest": {
+        "phlak/semver-cli": "Per versionare il package e eseguire tutti gli script sopra"
+    },
+    "version": "2.0.0"
+}
